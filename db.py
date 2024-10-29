@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, create_engine, Session
-DATABASE_URL = "postgresql://postgres.bveaeajkjyrnfjvhctcx:Sumerian5588!*@aws-0-us-west-1.pooler.supabase.com:6543/postgres"
+from config import DATABASE_URL
+
 
 engine = create_engine(DATABASE_URL, echo=True)
 
