@@ -11,6 +11,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:5173",
+    "http://127.0.0.1:5173",
     "http://localhost:8000",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
@@ -77,3 +78,17 @@ app.post("/products/")(create_generic(Product))
 app.get("/products/{item_id}")(read_generic(Product))
 app.put("/products/{item_id}")(update_generic(Product))
 app.delete("/products/{item_id}")(delete_generic(Product))
+@app.get("/products")
+def read_all_products(session: Session = Depends(get_session)):
+    products = session.exec(select(Product)).all()
+    return products
+
+@app.get("/categories")
+def read_all_categories(session: Session = Depends(get_session)):
+    categories = session.exec(select(Category)).all()
+    return categories
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Product Catalog API"}
+    return {"message": "Welcome to the Product Catalog API"}
